@@ -1,0 +1,38 @@
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+install.log
+
+# Build outputs
+/dist/
+/__build__/
+/__server_build__/
+/dist-server/
+/compiled/
+
+# Sensitive credentials & private keys
+*-adminsdk-*.json
+*serviceAccount*.json
+.env
+.env.*
+
+# Angular & Webpack artifacts
+webpack.records.json
+*.ngfactory.ts
+*.css.shim.ts
+*.ngsummary.json
+*.metadata.json
+*.shim.ngstyle.ts
+
+# Logs
+*.log

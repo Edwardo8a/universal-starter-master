@@ -1,0 +1,23 @@
+<h1>Nueva Tarea</h1>
+<form>
+  <div>
+    <label for="titulo">Título de la tarea</label>
+    <input id="titulo" name="titulo" type="text" placeholder="Ej. Realizar práctica de Angular" required>
+  </div>
+
+  <div>
+    <label for="descripcion">Descripción</label>
+    <textarea id="descripcion" name="descripcion" placeholder="Detalles de la tarea..."></textarea>
+  </div>
+
+  <div>
+    <label for="prioridad">Prioridad</label>
+    <select id="prioridad" name="prioridad">
+      <option value="baja">Baja</option>
+      <option value="media" selected>Media</option>
+      <option value="alta">Alta</option>
+    </select>
+  </div>
+
+  <button type="submit">Guardar tarea</button>
+</form>
