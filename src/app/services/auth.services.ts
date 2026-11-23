@@ -27,7 +27,10 @@ export class AuthService {
                 if (!result.user) {
                     throw new Error('No se recibió el usuario de Google.');
                 }
-                return this.userS.add({uid: result.user!.uid, email: result.user!.email});
+                return this.userS.add({uid: result.user!.uid, email: result.user!.email})
+                    .catch(err => {
+                        console.warn('No se pudo sincronizar usuario en Firestore (continuando login):', err);
+                    });
             });
     }
 }

@@ -1,19 +1,21 @@
-import {Component} from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'app.component.html' ,
+  templateUrl: 'app.component.html',
   styles: []
 })
 export class AppComponent {
 
-  constructor(public afAuth: AngularFireAuth, private router: Router){}
+  constructor(public afAuth: AngularFireAuth, private router: Router, private ngZone: NgZone) {}
 
-  logout(){
+  logout() {
     this.afAuth.auth.signOut().then(() => {
-      this.router.navigate(['/login']);
+      this.ngZone.run(() => {
+        this.router.navigate(['/login']);
+      });
     });
   }
 }

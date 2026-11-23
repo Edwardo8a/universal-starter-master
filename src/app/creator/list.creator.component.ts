@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { ILista } from '../structures/lista';
 import { ListService } from '../services/list.services';
@@ -13,18 +13,30 @@ export class ListCreatorComponent {
     busy = false;
     error = '';
 
-    constructor(private listS: ListService, private router: Router) {}
+    constructor(
+        private listS: ListService,
+        private router: Router,
+        private ngZone: NgZone
+    ) {}
 
     save(): void {
         if (this.busy) { return; }
         this.busy = true;
         this.error = '';
         this.listS.add(this.list)
-            .then(list => this.router.navigate(['/lists', list.id]))
-            .then(() => { this.busy = false; })
+            .then(list => {
+                this.ngZone.run(() => {
+                    this.router.navigate(['/lists', list.id]);
+                });
+            })
+            .then(() => {
+                this.ngZone.run(() => { this.busy = false; });
+            })
             .catch(error => {
-                this.busy = false;
-                this.error = firebaseError(error);
+                this.ngZone.run(() => {
+                    this.busy = false;
+                    this.error = firebaseError(error);
+                });
             });
     }
 }
