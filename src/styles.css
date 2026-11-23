@@ -1,34 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* === Imports primero === */
 @import './app/styles/colors.css';
 @import './app/styles/defaults.css';
 @import '~font-awesome/css/font-awesome.min.css';
 @import '~ng-pick-datetime/assets/style/picker.min.css';
 
-.large-padding{
+/* === Layout general === */
+.large-padding {
     padding: 10px 15px;
 }
 
-.float-right{
+.float-right {
     float: right;
 }
 
-.small-font{
+.small-font {
     font-size: 1rem;
 }
 
-.main-nav .float-right a{
+.main-nav .float-right a {
     margin-left: 3rem;
 }
 
-.main-nav a{
+.main-nav a {
     text-decoration: none;
 }
 
-.form-control{
+.form-control {
     width: 100%;
     outline: 0;
     border: 0;
-    display:block;
+    display: block;
     padding: 10px 15px;
     margin-top: 1em;
     font-size: 1em;
@@ -36,7 +39,7 @@
     box-sizing: border-box;
 }
 
-.btn{
+.btn {
     border: 0;
     outline: 0;
     border-radius: 4px;
@@ -45,85 +48,137 @@
     font-size: 1rem;
     box-sizing: border-box;
     text-transform: uppercase;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.full-width{
+.full-width {
     width: 100%;
 }
-.top-space{
+
+.top-space {
     margin-top: 1em;
 }
 
-.card{
+/* === Tarjetas === */
+.card {
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     box-sizing: border-box;
     position: relative;
 }
-.card.with-badge{
+
+.card.with-badge {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-areas: "title title title title title title title title badge badge";
 }
 
-.card.with-badge h4{
+.card.with-badge h4 {
     grid-area: title;
 }
 
-.card.with-badge .badge{
+.card.with-badge .badge {
     grid-area: badge;
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
-.card.with-badge .badge span{
+
+.card.with-badge .badge span {
     height: 3em;
     width: 3em;
     border-radius: 50%;
     font-size: 0.875rem;
     display: flex;
-    align-items:center;
+    align-items: center;
     justify-content: center;
 }
 
-.lateral-padding{
-    padding:0 8px;
-    
+/* === Misc === */
+.lateral-padding {
+    padding: 0 8px;
 }
 
-.no-background{
+.no-background {
     font-size: 1em;
     outline: 0;
     border: 0;
 }
 
-button.no-background{
+button.no-background {
     font-size: 1em;
     outline: 0;
     border: 0;
 }
 
-.text-right{
+.text-right {
     text-align: right;
 }
 
-.overflow-hidden{
+.overflow-hidden {
     overflow: hidden;
 }
 
-.todo-card{
-    /*transform: translateX(-100px);*/
+/* === Todo card (swipe-left para completar) === */
+.todo-card {
     position: relative;
 }
 
-.todo-card::after{
-    position:absolute;
-    z-index:-1;
-    content:'\f00c';
+.todo-card::after {
+    position: absolute;
+    z-index: -1;
+    content: '\f00c';
     font-family: FontAwesome;
     top: 50%;
-    right: -2em ;
+    right: -2em;
     font-weight: bold;
     color: #00ff00;
+}
+
+/* === Swipe-to-delete listas (home) === */
+.list-link {
+    display: block;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.list-wrapper {
+    position: relative;
+}
+
+.delete-hint {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 0;
+    color: #00cc55;
+    font-size: 1.8rem;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+.list-wrapper .card {
+    position: relative;
+    z-index: 1;
+}
+
+.card-body {
+    grid-area: title;
+}
+
+.deadline-text {
+    font-size: 0.85rem;
+    margin: 4px 0 0;
+    opacity: 0.75;
+}
+
+.deadline-text .fa {
+    margin-right: 4px;
+}
+
+.error-text {
+    color: #c0392b;
+    padding: 8px 0;
 }

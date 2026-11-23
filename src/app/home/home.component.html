@@ -1,12 +1,37 @@
 <div class="large-padding" [@enterState]="(lists | async)?.length">
-    <a [routerLink]="['/lists', list.id]" *ngFor="let list of lists | async">
-        <article class="card block large-padding top-space with-badge">
-            <h4>{{list.title}}</h4>
-            <p *ngIf="list.deadline"><i class="fa fa-calendar"></i> {{ deadlineLabel(list.deadline) }}</p>
-            <div class="badge">
-                <span>0</span>
-            </div>
-        </article>
-    </a>
-    <p *ngIf="error" role="alert">{{ error }}</p>
+
+  <a [routerLink]="['/lists', list.id]"
+     *ngFor="let list of lists | async"
+     class="list-link"
+     (mousedown)="press(list.id)"
+     (mouseup)="release(list.id)"
+     (touchstart)="press(list.id)"
+     (touchend)="release(list.id)"
+     (swipeleft)="swipeLeft(list)">
+
+    <div class="list-wrapper" [@swipeDelete]="getSwipeState(list.id)">
+
+      <!-- Palomita que aparece detrás al deslizar -->
+      <div class="delete-hint">
+        <i class="fa fa-check"></i>
+      </div>
+
+      <article class="card block large-padding top-space with-badge">
+        <div class="card-body">
+          <h4>{{ list.title }}</h4>
+          <p *ngIf="list.deadline" class="deadline-text">
+            <i class="fa fa-calendar"></i>
+            {{ deadlineLabel(list.deadline) }}
+          </p>
+        </div>
+        <div class="badge">
+          <span><i class="fa fa-chevron-right"></i></span>
+        </div>
+      </article>
+
+    </div>
+  </a>
+
+  <p *ngIf="error" role="alert" class="error-text">{{ error }}</p>
+
 </div>

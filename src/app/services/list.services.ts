@@ -28,6 +28,14 @@ export class ListService {
         return this.afs.collection('users').doc(uid).collection<ILista>('list');
     }
 
+    delete(listId: string): Promise<void> {
+        const user = this.afAuth.auth.currentUser;
+        if (!user || !listId) {
+            return Promise.reject(new Error('Inicia sesión antes de eliminar una lista.'));
+        }
+        return this.collection(user.uid).doc(listId).delete();
+    }
+
     add(list: ILista): Promise<any> {
         const user = this.afAuth.auth.currentUser;
         if (!user) {
