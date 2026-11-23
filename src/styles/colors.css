@@ -1,6 +1,9 @@
-.blue{
-    background-color: #4c73d9;
+.blue {
+    background-color: #6a1b9a;
 }
-.light-text{
-    color: #f5f5f5;
+.blue:hover {
+    background-color: #581480;
+}
+.light-text {
+    color: #ffffff !important;
 }
