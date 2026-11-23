@@ -1,0 +1,12 @@
+<div class="large-padding" [@enterState]="(lists | async)?.length">
+    <a [routerLink]="['/lists', list.id]" *ngFor="let list of lists | async">
+        <article class="card block large-padding top-space with-badge">
+            <h4>{{list.title}}</h4>
+            <p *ngIf="list.deadline"><i class="fa fa-calendar"></i> {{ deadlineLabel(list.deadline) }}</p>
+            <div class="badge">
+                <span>0</span>
+            </div>
+        </article>
+    </a>
+    <p *ngIf="error" role="alert">{{ error }}</p>
+</div>

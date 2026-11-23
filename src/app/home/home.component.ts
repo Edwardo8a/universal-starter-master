@@ -1,15 +1,42 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { ListService } from '../services/list.services';
+import { ILista } from '../structures/lista';
+import { deadlineLabel } from '../structures/deadline-label';
+import { firebaseError } from '../services/firebase-error';
+import { animate, style, transition, trigger, query, stagger } from '@angular/animations';
 
 @Component({
-  selector: 'app-home',
-  template: `
-  <h3>{{message}}</h3><app-login></app-login>
-  `
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    animations: [
+        trigger('enterState', [
+            transition('* => *', [
+                query(':enter',[
+                    style({ transform: 'translateX(-100%)', opacity: 0 }),
+                    stagger(50,[animate(200,style({ transform: 'translateX(0)', opacity: 1 }))                        
+                    ])
+                ], { optional: true })
+                ])
+            ])
+    ]
 })
-export class HomeComponent {
-  public message = `Angular Universal`;
-  // tslint:disable-next-line:max-line-length
-  public image = 'https://camo.githubusercontent.com/81f72f2fdf98aa1d30b5b215bc8ca9420b249e81/68747470733a2f2f616e67756c61722e696f2f67656e6572617465642f696d616765732f6d61726b6574696e672f636f6e636570742d69636f6e732f756e6976657273616c2e706e67';
 
-  constructor() {}
+export class HomeComponent {
+    lists !: Observable<ILista[]>;
+    error = '';
+    deadlineLabel = deadlineLabel;
+
+    constructor(private listS: ListService) {
+        this.load();
+    }
+
+    load(): void {
+        this.error = '';
+        this.lists = this.listS.lists.pipe(catchError(error => {
+            this.error = firebaseError(error);
+            return of([] as ILista[]);
+        }));
+    }
 }

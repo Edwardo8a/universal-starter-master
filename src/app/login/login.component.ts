@@ -1,18 +1,31 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService}from'../services/auth.services';
-//Permite a la clase ejecutar como componente 
-@Component({
-    selector: 'app-login',
-    templateUrl: 'login.component.html',
-})
-//Declaracion de componente
-export class LoginComponent implements OnInit {
-    constructor(private authService: AuthService) {}
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../services/auth.services';
+import { firebaseError } from '../services/firebase-error';
 
-    ngOnInit(): void {
-    }
+@Component({
+    selector: 'login',
+    templateUrl: 'login.component.html'
+})
+export class LoginComponent {
+    busy = false;
+    error = '';
+
+    constructor(private auth: AuthService, private route: ActivatedRoute, private router: Router) {}
 
     login(): void {
-        this.authService.login().then(console.log);
+        if (this.busy) { return; }
+        this.busy = true;
+        this.error = '';
+        this.auth.login().then(() => {
+            const destination = this.route.snapshot.queryParamMap.get('returnUrl');
+            return this.router.navigateByUrl(
+                destination && destination.charAt(0) === '/' && destination.indexOf('//') !== 0
+                    ? destination : '/'
+            );
+        }).then(() => { this.busy = false; }).catch(error => {
+            this.busy = false;
+            this.error = firebaseError(error);
+        });
     }
 }

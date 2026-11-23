@@ -1,0 +1,14 @@
+<div class="large-padding">
+    <input type="text" [(ngModel)]="list.title" placeholder="Nombre de la lista" class="form-control">
+    <div class="date-time-picker">
+        <input type="text" [(ngModel)]="list.deadline" placeholder="Fecha límite (opcional)" [owlDateTime]="dt" [owlDateTimeTrigger]="dt" class="form-control">
+        <owl-date-time #dt></owl-date-time>
+    </div>
+    <div class="top-space">
+        <button type="button" class="btn blue light-text full-width" (click)="save()" [disabled]="busy">
+            <i class="fa fa-save"></i>
+            Guardar
+        </button>
+    </div>
+    <p *ngIf="error" role="alert">{{ error }}</p>
+</div>

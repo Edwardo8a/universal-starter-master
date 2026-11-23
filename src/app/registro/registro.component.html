@@ -1,0 +1,13 @@
+<h1>Registro</h1>
+
+<div class="large-padding">
+    <input type="text" [(ngModel)]="register.name" placeholder="Nombre" class="form-control">
+    <input type="email" [(ngModel)]="register.email" placeholder="Email" class="form-control">
+    <input type="password" [(ngModel)]="register.password" placeholder="Contraseña" class="form-control">
+    <div class="top-space">
+        <button type="button" class="btn blue light-text full-width" (click)="save()">
+            <i class="fa fa-save"></i>
+            Guardar
+        </button>
+    </div>
+</div>

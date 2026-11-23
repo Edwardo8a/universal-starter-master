@@ -1,0 +1,28 @@
+<div class="text-right">
+    <button type="button" class="large-padding pointer no-background light-text" (click)="toggleForm()" [attr.aria-expanded]="formState === 'expanded'">
+        {{label()}}
+        <i class="fa {{icon()}}"></i>
+    </button>
+</div>
+
+
+<div class="lateral-padding" *ngIf="formState === 'expanded'">
+    <input type="text" placeholder="Que vas hacer?" [(ngModel)]="todo.content" class="form-control" required min="3">
+    <textarea placeholder="Informacion adicional (opcional)" [(ngModel)]="todo.description" class="form-control"></textarea>
+    
+    <div class="date-time-picker">
+    <input type="text" placeholder="Fecha Limite(optional)" [owlDateTime]="dt" [owlDateTimeTrigger]="dt" class="form-control" [(ngModel)]="todo.deadline">
+    <owl-date-time #dt></owl-date-time>
+
+    </div>
+
+
+
+    <div class="top-space">
+    <button type="button" class="btn blue light-text full-width" (click)="save()" [disabled]="busy || !todo.content.trim()">
+    <i class="fa fa-save"></i>
+    Guardar
+    </button>
+    </div>
+    <p *ngIf="error" role="alert">{{ error }}</p>
+</div>

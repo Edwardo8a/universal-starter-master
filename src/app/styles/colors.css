@@ -1,0 +1,19 @@
+.blue{
+    background-color: rgb(189, 205, 189);
+}
+.light-text{
+    color: black;
+}
+body{
+    background-color: rgb(234, 233, 231);
+    color:black;
+}
+
+.card{
+    background: rgb(71, 72, 71);
+    color: white;
+}
+.card.with-badge .badge span{
+    background-color: rgb(189, 205, 189);
+    color: black;
+}

@@ -1,0 +1,19 @@
+<article class="card block large-padding top-space block todo-card" *ngIf="todo" 
+(mouseup)="press='up'" 
+(mousedown)="press='down'"
+
+(pressup)="press='up'"
+(pressdown)="press='down'"
+
+
+[@statusAnimation]="todo.status"
+[@pressAnimation]="press"
+(swipeleft)="completed()">
+    <h4>{{ todo.content }}</h4>
+    <p *ngIf="todo.deadline">
+        <i class="fa fa-calendar"></i>
+        {{ deadlineLabel(todo.deadline) }}
+    </p>
+    <p *ngIf="todo.description">{{ todo.description }}</p>
+    <p *ngIf="error" role="alert">{{ error }}</p>
+</article>
