@@ -1,6 +1,19 @@
-<todo-creator [id]="listId"></todo-creator>
+<div class="large-padding">
+  <div style="margin-bottom: 1rem;">
+    <a routerLink="/" style="text-decoration: none; color: #555; display: inline-flex; align-items: center; gap: 6px;">
+      <i class="fa fa-arrow-left"></i> Volver a mis listas
+    </a>
+  </div>
 
-<div [@enterState]="(todos | async)?.length">
-<todo-card *ngFor="let todo of todos | async; trackBy: trackTodoObjects" [todo]="todo" [listId]="listId"></todo-card>
+  <todo-creator [id]="listId"></todo-creator>
+
+  <div [@enterState]="(todos | async)?.length" class="top-space">
+    <todo-card *ngFor="let todo of todos | async; trackBy: trackTodoObjects" [todo]="todo" [listId]="listId"></todo-card>
+  </div>
+
+  <div *ngIf="(todos | async)?.length === 0" style="text-align: center; padding: 2rem 1rem; color: #777;">
+    <p>No hay pendientes en esta lista. ¡Agrega uno arriba!</p>
+  </div>
+
+  <p *ngIf="error" role="alert" class="error-text">{{ error }}</p>
 </div>
-<p *ngIf="error" role="alert">{{ error }}</p>

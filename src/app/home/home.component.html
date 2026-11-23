@@ -1,37 +1,49 @@
-<div class="large-padding" [@enterState]="(lists | async)?.length">
+<div class="large-padding">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; margin-bottom: 1rem;">
+    <h2 style="margin: 0;">Mis Listas</h2>
+    <a routerLink="/new" class="btn blue light-text" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+      <i class="fa fa-plus"></i> Nueva Lista
+    </a>
+  </div>
 
-  <a [routerLink]="['/lists', list.id]"
-     *ngFor="let list of lists | async"
-     class="list-link"
-     (mousedown)="press(list.id)"
-     (mouseup)="release(list.id)"
-     (touchstart)="press(list.id)"
-     (touchend)="release(list.id)"
-     (swipeleft)="swipeLeft(list)">
+  <div [@enterState]="(lists | async)?.length">
+    <a [routerLink]="['/lists', list.id]"
+       *ngFor="let list of lists | async"
+       class="list-link"
+       (mousedown)="press(list.id)"
+       (mouseup)="release(list.id)"
+       (touchstart)="press(list.id)"
+       (touchend)="release(list.id)"
+       (swipeleft)="swipeLeft(list)">
 
-    <div class="list-wrapper" [@swipeDelete]="getSwipeState(list.id)">
-
-      <!-- Palomita que aparece detrás al deslizar -->
-      <div class="delete-hint">
-        <i class="fa fa-check"></i>
+      <div class="list-wrapper" [@swipeDelete]="getSwipeState(list.id)">
+        <div class="delete-hint">
+          <i class="fa fa-check"></i>
+        </div>
+        <article class="card block large-padding top-space with-badge">
+          <div class="card-body">
+            <h4>{{ list.title }}</h4>
+            <p *ngIf="list.deadline" class="deadline-text">
+              <i class="fa fa-calendar"></i>
+              {{ deadlineLabel(list.deadline) }}
+            </p>
+          </div>
+          <div class="badge">
+            <span><i class="fa fa-chevron-right"></i></span>
+          </div>
+        </article>
       </div>
+    </a>
+  </div>
 
-      <article class="card block large-padding top-space with-badge">
-        <div class="card-body">
-          <h4>{{ list.title }}</h4>
-          <p *ngIf="list.deadline" class="deadline-text">
-            <i class="fa fa-calendar"></i>
-            {{ deadlineLabel(list.deadline) }}
-          </p>
-        </div>
-        <div class="badge">
-          <span><i class="fa fa-chevron-right"></i></span>
-        </div>
-      </article>
-
-    </div>
-  </a>
+  <div *ngIf="(lists | async)?.length === 0" style="text-align: center; padding: 3rem 1rem; color: #555; background: #fff; border-radius: 8px; margin-top: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.12);">
+    <i class="fa fa-list-alt fa-3x" style="opacity: 0.4; margin-bottom: 1rem; display: block;"></i>
+    <h3 style="margin: 0 0 0.5rem;">No tienes listas creadas</h3>
+    <p style="margin: 0 0 1.5rem; color: #777;">Crea tu primera lista para empezar a organizar tus tareas y pendientes.</p>
+    <a routerLink="/new" class="btn blue light-text" style="text-decoration: none; display: inline-block;">
+      <i class="fa fa-plus"></i> Crear Lista
+    </a>
+  </div>
 
   <p *ngIf="error" role="alert" class="error-text">{{ error }}</p>
-
 </div>

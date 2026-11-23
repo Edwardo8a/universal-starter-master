@@ -1,14 +1,20 @@
 <div class="large-padding">
+    <div style="margin-bottom: 1rem;">
+        <a routerLink="/" style="text-decoration: none; color: #555; display: inline-flex; align-items: center; gap: 6px;">
+            <i class="fa fa-arrow-left"></i> Volver a mis listas
+        </a>
+    </div>
+    <h2>Crear Nueva Lista</h2>
     <input type="text" [(ngModel)]="list.title" placeholder="Nombre de la lista" class="form-control">
     <div class="date-time-picker">
         <input type="text" [(ngModel)]="list.deadline" placeholder="Fecha límite (opcional)" [owlDateTime]="dt" [owlDateTimeTrigger]="dt" class="form-control">
         <owl-date-time #dt></owl-date-time>
     </div>
     <div class="top-space">
-        <button type="button" class="btn blue light-text full-width" (click)="save()" [disabled]="busy">
+        <button type="button" class="btn blue light-text full-width" (click)="save()" [disabled]="busy || !list.title.trim()">
             <i class="fa fa-save"></i>
             Guardar
         </button>
     </div>
-    <p *ngIf="error" role="alert">{{ error }}</p>
+    <p *ngIf="error" role="alert" class="error-text">{{ error }}</p>
 </div>
